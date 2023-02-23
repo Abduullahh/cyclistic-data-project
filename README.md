@@ -9,10 +9,8 @@ My google data anlaytics certificate capstone (track one)
 3. How can Cyclistic use digital media to influence casual riders to become members?
 
 ### Guiding questions
-
 1. What is the problem you are trying to solve?
- Trying to find a new marketing strategy aimed to convert casual riders into members by knowing how both riders differ in using the service and how would the degital media influence casual riders to become members. 
-
+ Trying to find a new marketing strategy aimed to convert casual riders into members.
 2. How can your insights drive business decisions?
  It can help the stakeholders take a data driven decision based on the insights i'm coming up with.
 

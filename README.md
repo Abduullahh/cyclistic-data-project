@@ -15,11 +15,10 @@ Trying to find a new marketing strategy aimed to convert casual riders into memb
 It can help the stakeholders take a data driven decision based on the insights i'm coming up with.
 
 ### Key tasks
-1. Identify the business task  
-- Answering the 3 following questions :-
-1. How do annual members and casual riders use Cyclistic bikes differently?
-2. Why would casual riders buy Cyclistic annual memberships?
-3. How can Cyclistic use digital media to influence casual riders to become members?  
+1. Identify the business task
+- Understand how do annual members and casual riders use Cyclistic bikes differently?
+- Identify why would casual riders buy Cyclistic annual memberships?
+- Explain how can Cyclistic use digital media to influence casual riders to become members?  
 
 2. Consider key stakeholders
 - Cyclistic  

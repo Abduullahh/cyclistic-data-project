@@ -21,5 +21,5 @@ My google data anlaytics certificate capstone (track one)
 2. Consider key stakeholders
 
 ### Deliverable
-- A clear statement of the business task
+- A clear statement of the business task  
  Have to know how causal riders and members use Cyclistic in different way and how would degital media influence casuals to become members.

@@ -83,4 +83,4 @@
 
 ### Deliverable
 ##### Documentation of any cleaning or manipulation of data
--  
+-  The postgresql-local.session.sql file has everything i've done to get my data clean.  

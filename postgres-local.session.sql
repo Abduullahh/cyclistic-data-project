@@ -12,3 +12,19 @@ FROM test
 WHERE member_casual = 'casual'
 ORDER BY ride_length DESC
 LIMIT 1000;
+---------------------------------------------------------------------------------------------------------------------------
+-- to make sure that there's no duplicates in the ride_id column.
+SELECT COUNT(ride_id)
+FROM test; -- 5754248
+SELECT COUNT(DISTINCT ride_id)
+from test; -- 5754248
+-- to make sure that there's no extra spaces or wrong data entered in this column.
+SELECT rideable_type
+FROM test
+GROUP BY rideable_type
+LIMIT 100; 
+--
+SELECT DATE_PART('year', started_at), DATE_PART('year', ended_at)
+FROM test
+GROUP BY started_at, ended_at
+LIMIT 100;

@@ -61,3 +61,4 @@
 - Used a 12 month historical data from Cyclystic (data from 2022-Feb to 2023-Jan).  
 
 
+# Process

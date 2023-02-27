@@ -15,9 +15,9 @@ LIMIT 1000;
 ---------------------------------------------------------------------------------------------------------------------------
 -- to make sure that there's no duplicates in the ride_id column.
 SELECT COUNT(ride_id)
-FROM test; -- 5754248
+FROM test; -- 5754248 ROWS
 SELECT COUNT(DISTINCT ride_id)
-from test; -- 5754248
+from test; -- 5754248 ROWS
 -- to make sure that there's no extra spaces or wrong data entered in this column.
 SELECT rideable_type
 FROM test
@@ -34,3 +34,34 @@ SELECT *
 FROM test 
 WHERE DATE_PART('year', ended_at) = 2023 AND DATE_PART('month', ended_at) = 2
 ORDER BY ended_at;
+SELECT *
+FROM test
+WHERE started_at IS NULL OR ended_at IS NULL; -- no nulls found
+-- to make sure that member_casual column is consistent
+SELECT DISTINCT member_casual
+FROM test;
+-- to know how many nulls in each column
+SELECT COUNT(*)
+FROM test
+WHERE start_station_name IS NULL; -- 843525 ROWS
+SELECT COUNT(*)
+FROM test
+WHERE start_station_id IS NULL; -- 843525 ROWS
+SELECT COUNT(*)
+FROM test
+WHERE end_station_name IS NULL; -- 902655 ROWS
+SELECT COUNT(*)
+FROM test
+WHERE end_station_id IS NULL; -- 902655 ROWS
+SELECT COUNT(*)
+FROM test
+WHERE start_station_name IS NULL OR start_station_id IS NULL OR end_station_name IS NULL OR end_station_id IS NULL; -- 1316732 ROWS
+SELECT COUNT(*)
+FROM test
+WHERE end_lat IS NULL; -- 5899 ROWS
+SELECT COUNT(*)
+FROM test
+WHERE end_lng IS NULL; -- 5899 ROWS -- there are no nulls within the start_lat or start_lng columns --
+SELECT COUNT(*)
+FROM test
+WHERE member_casual IS NULL; -- 0 ROWS

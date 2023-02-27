@@ -23,8 +23,14 @@ SELECT rideable_type
 FROM test
 GROUP BY rideable_type
 LIMIT 100; 
---
-SELECT DATE_PART('year', started_at), DATE_PART('year', ended_at)
+-- to make sure the start_at, ended_at columns are clean and correct.
+SELECT DISTINCT DATE_PART('year', started_at) AS started_at_year, DATE_PART('month', started_at) AS started_at_months
 FROM test
-GROUP BY started_at, ended_at
-LIMIT 100;
+ORDER BY started_at_year, started_at_months;
+SELECT DISTINCT DATE_PART('year', ended_at) AS ended_at_year, DATE_PART('month', ended_at) AS ended_at_months
+FROM test
+ORDER BY ended_at_year, ended_at_months;
+SELECT * 
+FROM test 
+WHERE DATE_PART('year', ended_at) = 2023 AND DATE_PART('month', ended_at) = 2
+ORDER BY ended_at;

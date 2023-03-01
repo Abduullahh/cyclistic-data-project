@@ -138,3 +138,16 @@ end_station_name = TRIM(end_station_name),
 end_station_id = TRIM(end_station_id),
 member_casual = TRIM(member_casual);
 
+-- I noticed here that this field is not numeric so i'm gonna convert it to float
+SELECT *, (ended_at - started_at) FROM test ORDER BY ride_length DESC LIMIT 10000;
+SELECT *, CAST(ride_length AS FLOAT) ride_length_2 FROM test LIMIT 100000;
+
+UPDATE test
+SET ride_length = CAST(ride_length AS FLOAT);
+
+-- i just wanted to make sure that the datatype of each field is correct
+SELECT COLUMN_NAME, DATA_TYPE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_SCHEMA = 'public' AND
+TABLE_NAME = 'test';
+

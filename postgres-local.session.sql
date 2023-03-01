@@ -18,11 +18,13 @@ SELECT COUNT(ride_id)
 FROM test; -- 5754248 ROWS
 SELECT COUNT(DISTINCT ride_id)
 from test; -- 5754248 ROWS
+
 -- to make sure that there's no extra spaces or wrong data entered in this column.
 SELECT rideable_type
 FROM test
 GROUP BY rideable_type
 LIMIT 100; 
+
 -- to make sure the start_at, ended_at columns are clean and correct.
 SELECT DISTINCT DATE_PART('year', started_at) AS started_at_year, DATE_PART('month', started_at) AS started_at_months
 FROM test
@@ -37,59 +39,10 @@ ORDER BY ended_at;
 SELECT *
 FROM test
 WHERE started_at IS NULL OR ended_at IS NULL; -- no nulls found
+
 -- to make sure that member_casual column is consistent
 SELECT DISTINCT member_casual
 FROM test;
--- to know how many nulls in each column
-SELECT COUNT(*)
-FROM test
-WHERE start_station_name IS NULL; -- 843525 ROWS
-SELECT COUNT(*)
-FROM test
-WHERE start_station_id IS NULL; -- 843525 ROWS
-SELECT COUNT(*)
-FROM test
-WHERE end_station_name IS NULL; -- 902655 ROWS
-SELECT COUNT(*)
-FROM test
-WHERE end_station_id IS NULL; -- 902655 ROWS
-SELECT COUNT(*)
-FROM test
-WHERE start_station_name IS NULL OR start_station_id IS NULL OR end_station_name IS NULL OR end_station_id IS NULL; -- 1316732 ROWS
-SELECT COUNT(*)
-FROM test
-WHERE end_lat IS NULL; -- 5899 ROWS
-SELECT COUNT(*)
-FROM test
-WHERE end_lng IS NULL; -- 5899 ROWS -- there are no nulls within the start_lat or start_lng columns --
-SELECT COUNT(*)
-FROM test
-WHERE member_casual IS NULL; -- 0 ROWS
-/* here i'm trying to fill the nulls within the start_station_name column based on the start_lat and start_lng if i could
-and gonna do the same with end_station_name*/
-SELECT start_station_name, start_lat, start_lng
-FROM test
-WHERE start_station_name IS NULL OR start_station_id IS NOT NULL
-LIMIT 1000;
-/* 
-lat                  long           result 
-41.87               -87.66          no data
-41.93               -87.65          no data
-41.92               -87.69          no data
-41.9                -87.68          N Damen Ave & W Chicago Ave
-41.9                -87.67          no data
-41.98               -87.68          no data
-*/
-UPDATE test
-SET start_station_name = 'N Damen Ave & W Chicago Ave'
-WHERE start_lat = '41.9' AND start_lng = '-87.68';
-
-SELECT a.end_station_name, a.end_station_id, b.end_station_name, b.end_station_id
-FROM test a
-JOIN test b
-ON a.ride_id = b.ride_id
-WHERE a.end_station_id IS NULL AND b.end_station_id IS NOT NULL
-LIMIT 1000;
 
 /* Remove duplicates ( HINT : we cant delete records from CTE in postgresql )*/
 WITH cte AS(
@@ -108,6 +61,32 @@ ROW_NUMBER() OVER(
                  end_lng
 ) row_num
 FROM test)
-delete
+SELECT *
 FROM cte
 WHERE row_num > 1;
+/* I used this query to delete the duplicates because the normal way of deleting from a cte doesn't work in postgresql */
+DELETE FROM test
+WHERE ride_id IN (
+    SELECT ride_id
+    FROM (
+        SELECT *,
+ROW_NUMBER() OVER(
+    PARTITION BY rideable_type,
+                 started_at,
+                 ended_at,
+                 start_station_name,
+                 start_station_id,
+                 end_station_name,
+                 end_station_id,
+                 start_lat,
+                 start_lng,
+                 end_lat,
+                 end_lng
+) row_num
+FROM test
+    ) s
+    WHERE row_num > 1
+) -- DELETE successfully executed. 25 rows were affected.
+SELECT COUNT(*)
+FROM test; -- total number of rows now is 5754223
+

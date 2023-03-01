@@ -3,9 +3,7 @@ SELECT COUNT (ride_id) AS total, ((CAST(COUNT(ride_id) AS NUMERIC)/5754248) * 10
 FROM test
 GROUP BY member_casual
 ORDER BY total DESC; -- to know how many each of the riders and their percentege and sort the result by the highest total
-SELECT  *
-FROM test
-LIMIT 1000;
+
 SELECT ride_id, started_at, ended_at, member_casual,start_station_name,
 COALESCE(end_station_name, end_station_id), (ended_at - started_at) AS ride_length
 FROM test
@@ -90,3 +88,43 @@ FROM test
 SELECT COUNT(*)
 FROM test; -- total number of rows now is 5754223
 
+-- i found some errors with the started_at and ended_at columns like they were swapped or something
+SELECT * 
+FROM test 
+WHERE ended_at < started_at
+LIMIT 10000;
+-- so i swapped them using the update statement
+UPDATE test
+SET started_at = ended_at, ended_at = started_at
+WHERE ended_at < started_at;
+
+-- to count the ride_length for each record
+SELECT ride_id, started_at, ended_at, (ended_at - started_at) AS ride_length, member_casual
+FROM test
+ORDER BY ride_length DESC
+LIMIT 10000;
+
+/* this adds a new column has numbers from 0 to 6 (0 means sunday, 6 means saturday) 
+but i want it to be textual not numbers so i used the below query instead */
+SELECT *, EXTRACT(dow from started_at)
+FROM test
+LIMIT 100;
+-- to know the day of each ride per record
+SELECT *, to_char(started_at, 'Day')
+FROM test
+LIMIT 100000;
+-- to count ride length in hours
+SELECT started_at, ended_at, (EXTRACT(EPOCH FROM(ended_at - started_at))/3600) AS ride_length
+FROM test
+LIMIT 10;
+
+-- here i'm adding the new column (weekday) to the table
+ALTER TABLE test
+ADD COLUMN weekday text;
+UPDATE test
+SET weekday = to_char(started_at, 'Day');
+-- added the ride_length column and noting that the calculated field is in Hours
+ALTER TABLE test
+ADD COLUMN ride_length NUMERIC;
+UPDATE test
+SET ride_length = EXTRACT(EPOCH FROM(ended_at - started_at))/3600;

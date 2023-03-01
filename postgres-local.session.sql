@@ -42,7 +42,7 @@ WHERE started_at IS NULL OR ended_at IS NULL; -- no nulls found
 SELECT DISTINCT member_casual
 FROM test;
 
-/* Remove duplicates ( HINT : we cant delete records from CTE in postgresql )*/
+-- Remove duplicates ( HINT : we cant delete records from CTE in postgresql )
 WITH cte AS(
 SELECT *,
 ROW_NUMBER() OVER(
@@ -62,7 +62,7 @@ FROM test)
 SELECT *
 FROM cte
 WHERE row_num > 1;
-/* I used this query to delete the duplicates because the normal way of deleting from a cte doesn't work in postgresql */
+-- I used this query to delete the duplicates because the normal way of deleting from a cte doesn't work in postgresql
 DELETE FROM test
 WHERE ride_id IN (
     SELECT ride_id

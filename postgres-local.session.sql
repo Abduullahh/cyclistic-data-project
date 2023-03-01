@@ -128,3 +128,13 @@ ALTER TABLE test
 ADD COLUMN ride_length NUMERIC;
 UPDATE test
 SET ride_length = EXTRACT(EPOCH FROM(ended_at - started_at))/3600;
+
+-- Remove extra spaces if exists
+UPDATE test
+SET ride_id = TRIM(ride_id),
+start_station_name = TRIM(start_station_name),
+start_station_id = TRIM(start_station_id),
+end_station_name = TRIM(end_station_name),
+end_station_id = TRIM(end_station_id),
+member_casual = TRIM(member_casual);
+

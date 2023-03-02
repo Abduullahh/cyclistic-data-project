@@ -84,3 +84,28 @@
 ### Deliverable
 ##### Documentation of any cleaning or manipulation of data
 -  The [postgresql-local.session.sql](https://github.com/Abduullahh/data-project/blob/627473eb68a96ab1def421fab80095c61987f966/postgres-local.session.sql) file has everything i've done to get my data clean.  
+
+
+# Analyze
+### Guiding questions
+1. How should you organize your data to perform analysis on it?  
+- 
+2. Has your data been properly formatted?  
+- 
+3. What surprises did you discover in the data?  
+- 
+4. What trends or relationships did you find in the data?  
+- 
+5. How will these insights help answer your business questions?  
+- 
+
+### Key tasks
+1. Aggregate your data so it’s useful and accessible.
+2. Organize and format your data.
+3. Perform calculations.
+4. Identify trends and relationships.
+- 
+
+### Deliverable
+##### A summary of your analysis
+- 

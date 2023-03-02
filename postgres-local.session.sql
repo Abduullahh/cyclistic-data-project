@@ -169,11 +169,6 @@ UPDATE test
 SET weekday = TRIM(weekday);
 
 -- this shows the most times at which rides happen on saturday.
-SELECT *
-FROM test
-WHERE weekday = 'Saturday' 
-LIMIT 1000;
-
 SELECT weekday, ride_hour,COUNT(ride_hour) AS ride_hour_count
 FROM(
     SELECT started_at, weekday, EXTRACT(HOUR FROM started_at) AS ride_hour
@@ -182,3 +177,32 @@ WHERE weekday = 'Saturday'
 ) s
 GROUP BY s.weekday, ride_hour
 ORDER BY ride_hour_count DESC;
+-- this shows the most times at which rides happen on each day of the week.
+SELECT weekday, ride_hour,COUNT(ride_hour) AS ride_hour_count
+FROM(
+    SELECT started_at, weekday, EXTRACT(HOUR FROM started_at) AS ride_hour
+FROM test
+-- WHERE weekday = 'Sunday'
+) s
+GROUP BY s.weekday, ride_hour
+ORDER BY s.weekday, ride_hour_count DESC;
+
+-- here i'm calculating the average ride length for each rider type.
+SELECT member_casual, AVG(ride_length) AS average_ride_length
+FROM test
+GROUP BY member_casual
+ORDER BY average_ride_length DESC;
+-- calculating the max and min ride lengths for each rider type.
+SELECT member_casual,
+MAX(ride_length) maximum_ride_length,
+MIN(ride_length) minimum_ride_length
+FROM test
+GROUP BY member_casual;
+/* while i'm calculating the max and min ride length for each rider type 
+i found that there were records with 0 ride length, and i removed them (434 record exactly). */
+SELECT *
+FROM test
+WHERE ride_length = 0
+LIMIT 1000;
+DELETE FROM test
+WHERE ride_length = 0;

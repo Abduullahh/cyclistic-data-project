@@ -143,15 +143,42 @@ TABLE_NAME = 'test';
 -------------------------------------------------------------------------------------------------------
 --------------------------------------/* ANALYZE STEP */-----------------------------------------------
 
+-- this returns a table contains the type of bike and the number of them for each rider type.
+SELECT member_casual, rideable_type, COUNT(rideable_type) rideable_type_count
+FROM test
+GROUP BY member_casual, rideable_type
+ORDER BY 3 DESC
+LIMIT 1000;
+
+-- to know the number and percentage of each rider type and sort the result by the highest total.
 SELECT COUNT( DISTINCT ride_id) FROM test;
-SELECT COUNT (ride_id) AS total, ((CAST(COUNT(ride_id) AS NUMERIC)/5754248) * 100) AS percent_total,member_casual
+SELECT COUNT (ride_id) AS total,
+((CAST(COUNT(ride_id) AS NUMERIC)/5754248) * 100) AS percent_total,member_casual
 FROM test
 GROUP BY member_casual
-ORDER BY total DESC; -- to know how many each of the riders and their percentege and sort the result by the highest total
+ORDER BY total DESC;
 
-SELECT ride_id, started_at, ended_at, member_casual,start_station_name,
-COALESCE(end_station_name, end_station_id), (ended_at - started_at) AS ride_length
+-- this returns a result displaying the number of rides for each day of the week.
+SELECT weekday, COUNT(weekday) weekday_count
 FROM test
-WHERE member_casual = 'casual'
-ORDER BY ride_length DESC
+GROUP BY weekday
+ORDER BY weekday_count DESC;
+
+-- found some extra spaces in the weekday column so i'm gonna update it.
+UPDATE test
+SET weekday = TRIM(weekday);
+
+-- this shows the most times at which rides happen on saturday.
+SELECT *
+FROM test
+WHERE weekday = 'Saturday' 
 LIMIT 1000;
+
+SELECT weekday, ride_hour,COUNT(ride_hour) AS ride_hour_count
+FROM(
+    SELECT started_at, weekday, EXTRACT(HOUR FROM started_at) AS ride_hour
+FROM test
+WHERE weekday = 'Saturday'
+) s
+GROUP BY s.weekday, ride_hour
+ORDER BY ride_hour_count DESC;

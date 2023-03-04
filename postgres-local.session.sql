@@ -168,12 +168,66 @@ ORDER BY weekday_count DESC;
 UPDATE test
 SET weekday = TRIM(weekday);
 
--- this shows the most times at which rides happen on saturday.
+-- this shows the most times at which rides happen on Saturday.
 SELECT weekday, ride_hour,COUNT(ride_hour) AS ride_hour_count
 FROM(
     SELECT started_at, weekday, EXTRACT(HOUR FROM started_at) AS ride_hour
 FROM test
 WHERE weekday = 'Saturday'
+) s
+GROUP BY s.weekday, ride_hour
+ORDER BY ride_hour_count DESC;
+-- this shows the most times at which rides happen on Sunday.
+SELECT weekday, ride_hour,COUNT(ride_hour) AS ride_hour_count
+FROM(
+    SELECT started_at, weekday, EXTRACT(HOUR FROM started_at) AS ride_hour
+FROM test
+WHERE weekday = 'Sunday'
+) s
+GROUP BY s.weekday, ride_hour
+ORDER BY ride_hour_count DESC;
+-- this shows the most times at which rides happen on Monday.
+SELECT weekday, ride_hour,COUNT(ride_hour) AS ride_hour_count
+FROM(
+    SELECT started_at, weekday, EXTRACT(HOUR FROM started_at) AS ride_hour
+FROM test
+WHERE weekday = 'Monday'
+) s
+GROUP BY s.weekday, ride_hour
+ORDER BY ride_hour_count DESC;
+-- this shows the most times at which rides happen on Tuesday.
+SELECT weekday, ride_hour,COUNT(ride_hour) AS ride_hour_count
+FROM(
+    SELECT started_at, weekday, EXTRACT(HOUR FROM started_at) AS ride_hour
+FROM test
+WHERE weekday = 'Tuesday'
+) s
+GROUP BY s.weekday, ride_hour
+ORDER BY ride_hour_count DESC;
+-- this shows the most times at which rides happen on Wednesday.
+SELECT weekday, ride_hour,COUNT(ride_hour) AS ride_hour_count
+FROM(
+    SELECT started_at, weekday, EXTRACT(HOUR FROM started_at) AS ride_hour
+FROM test
+WHERE weekday = 'Wednesday'
+) s
+GROUP BY s.weekday, ride_hour
+ORDER BY ride_hour_count DESC;
+-- this shows the most times at which rides happen on Thursday.
+SELECT weekday, ride_hour,COUNT(ride_hour) AS ride_hour_count
+FROM(
+    SELECT started_at, weekday, EXTRACT(HOUR FROM started_at) AS ride_hour
+FROM test
+WHERE weekday = 'Thursday'
+) s
+GROUP BY s.weekday, ride_hour
+ORDER BY ride_hour_count DESC;
+-- this shows the most times at which rides happen on Friday.
+SELECT weekday, ride_hour,COUNT(ride_hour) AS ride_hour_count
+FROM(
+    SELECT started_at, weekday, EXTRACT(HOUR FROM started_at) AS ride_hour
+FROM test
+WHERE weekday = 'Friday'
 ) s
 GROUP BY s.weekday, ride_hour
 ORDER BY ride_hour_count DESC;

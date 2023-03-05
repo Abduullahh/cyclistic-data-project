@@ -151,17 +151,17 @@ FROM test
 GROUP BY member_casual
 ORDER BY total DESC;
 
--- this returns a table contains the type of bike and the number of them for each rider type.
+-- this returns a table displaying the type of bike and the number of them for each type of riders.
 SELECT member_casual, rideable_type, COUNT(rideable_type) AS rideable_type_count
 FROM test
 GROUP BY member_casual, rideable_type
 ORDER BY 3 DESC;
 
--- this returns a result displaying the number of rides for each day of the week.
-SELECT weekday, COUNT(weekday) AS weekday_count
+-- this returns a result displaying the number of rides per weekday for each type of riders.
+SELECT weekday, member_casual, COUNT(weekday) AS weekday_count
 FROM test
-GROUP BY weekday
-ORDER BY weekday_count DESC;
+GROUP BY weekday, member_casual
+ORDER BY member_casual DESC,weekday_count DESC;
 
 -- found some extra spaces in the weekday column so i'm gonna update it.
 UPDATE test
@@ -230,13 +230,21 @@ WHERE weekday = 'Friday'
 ) s
 GROUP BY s.weekday, ride_hour
 ORDER BY ride_hour_count DESC;
--- this shows the most times at which rides happen on each day of the week(didn't really use it).
-SELECT weekday, ride_hour,COUNT(ride_hour) AS ride_hour_count
+-- this shows the most times at which rides happen on weekdays for each type of riders.
+SELECT ride_hour,COUNT(ride_hour) AS ride_hour_count, member_casual
 FROM(
-    SELECT started_at, weekday, EXTRACT(HOUR FROM started_at) AS ride_hour
+    SELECT started_at, weekday, member_casual,EXTRACT(HOUR FROM started_at) AS ride_hour
 FROM test
 ) s
-GROUP BY s.weekday, ride_hour
+GROUP BY ride_hour, member_casual
+ORDER BY member_casual, ride_hour_count DESC;
+-- this shows the most times at which rides happen per weekday for each type of the riders.
+SELECT weekday, ride_hour, COUNT(ride_hour) AS ride_hour_count, member_casual
+FROM(
+    SELECT started_at, weekday, member_casual, EXTRACT(HOUR FROM started_at) AS ride_hour
+FROM test
+) s
+GROUP BY s.weekday, member_casual, ride_hour
 ORDER BY s.weekday, ride_hour_count DESC;
 
 -- here i'm calculating the average, median, maximum and minimum ride length for each rider type.

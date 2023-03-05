@@ -158,7 +158,7 @@ GROUP BY member_casual, rideable_type
 ORDER BY 3 DESC;
 
 -- this returns a result displaying the number of rides for each day of the week.
-SELECT weekday, COUNT(weekday) weekday_count
+SELECT weekday, COUNT(weekday) AS weekday_count
 FROM test
 GROUP BY weekday
 ORDER BY weekday_count DESC;

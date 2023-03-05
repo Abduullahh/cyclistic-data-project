@@ -143,20 +143,19 @@ TABLE_NAME = 'test';
 -------------------------------------------------------------------------------------------------------
 --------------------------------------/* ANALYZE STEP */-----------------------------------------------
 
--- this returns a table contains the type of bike and the number of them for each rider type.
-SELECT member_casual, rideable_type, COUNT(rideable_type) rideable_type_count
-FROM test
-GROUP BY member_casual, rideable_type
-ORDER BY 3 DESC
-LIMIT 1000;
-
 -- to know the number and percentage of each rider type and sort the result by the highest total.
-SELECT COUNT( DISTINCT ride_id) FROM test;
+SELECT COUNT( DISTINCT ride_id) FROM test; -- 5754248 rows
 SELECT COUNT (ride_id) AS total,
 ((CAST(COUNT(ride_id) AS NUMERIC)/5754248) * 100) AS percent_total,member_casual
 FROM test
 GROUP BY member_casual
 ORDER BY total DESC;
+
+-- this returns a table contains the type of bike and the number of them for each rider type.
+SELECT member_casual, rideable_type, COUNT(rideable_type) AS rideable_type_count
+FROM test
+GROUP BY member_casual, rideable_type
+ORDER BY 3 DESC;
 
 -- this returns a result displaying the number of rides for each day of the week.
 SELECT weekday, COUNT(weekday) weekday_count
@@ -231,25 +230,22 @@ WHERE weekday = 'Friday'
 ) s
 GROUP BY s.weekday, ride_hour
 ORDER BY ride_hour_count DESC;
--- this shows the most times at which rides happen on each day of the week.
+-- this shows the most times at which rides happen on each day of the week(didn't really use it).
 SELECT weekday, ride_hour,COUNT(ride_hour) AS ride_hour_count
 FROM(
     SELECT started_at, weekday, EXTRACT(HOUR FROM started_at) AS ride_hour
 FROM test
--- WHERE weekday = 'Sunday'
 ) s
 GROUP BY s.weekday, ride_hour
 ORDER BY s.weekday, ride_hour_count DESC;
 
--- here i'm calculating the average ride length for each rider type.
-SELECT member_casual, AVG(ride_length) AS average_ride_length
-FROM test
-GROUP BY member_casual
-ORDER BY average_ride_length DESC;
--- calculating the max and min ride lengths for each rider type.
+-- here i'm calculating the average, median, maximum and minimum ride length for each rider type.
 SELECT member_casual,
-MAX(ride_length) maximum_ride_length,
-MIN(ride_length) minimum_ride_length
+COUNT(*) AS total,
+(AVG(ride_length)) AS mean,
+PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY ride_length) AS median,
+MAX(ride_length) AS maximum,
+MIN(ride_length) AS minimum
 FROM test
 GROUP BY member_casual;
 /* while i'm calculating the max and min ride length for each rider type 
@@ -259,4 +255,7 @@ FROM test
 WHERE ride_length = 0
 LIMIT 1000;
 DELETE FROM test
-WHERE ride_length = 0;
+WHERE ride_length = 0; 
+-- to convert ride length from hours to minutes.
+UPDATE test
+SET ride_length = ride_length * 60;

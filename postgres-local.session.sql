@@ -143,7 +143,7 @@ TABLE_NAME = 'test';
 -------------------------------------------------------------------------------------------------------
 --------------------------------------/* ANALYZE STEP */-----------------------------------------------
 
--- to know the number and percentage of each rider type and sort the result by the highest total.
+-- to know the number and percentage of each rider type and sort the result by the highest total (book1).
 SELECT COUNT( DISTINCT ride_id) FROM test; -- 5754248 rows
 SELECT COUNT (ride_id) AS total,
 ((CAST(COUNT(ride_id) AS NUMERIC)/5754248) * 100) AS percent_total,member_casual
@@ -151,13 +151,14 @@ FROM test
 GROUP BY member_casual
 ORDER BY total DESC;
 
--- this returns a table displaying the type of bike and the number of them for each type of riders.
+-- this returns a table displaying the type of bike and the number of them for each type of riders (book4).
 SELECT member_casual, rideable_type, COUNT(rideable_type) AS rideable_type_count
 FROM test
 GROUP BY member_casual, rideable_type
 ORDER BY 3 DESC;
 
--- this returns a result displaying the number of rides per weekday for each type of riders.
+/* this returns a result displaying the number of rides per weekday for each type of riders
+( Total number of rides per weekday for each type of riders seperated book5 sheet1) */
 SELECT weekday, member_casual, COUNT(weekday) AS weekday_count
 FROM test
 GROUP BY weekday, member_casual
@@ -230,7 +231,8 @@ WHERE weekday = 'Friday'
 ) s
 GROUP BY s.weekday, ride_hour
 ORDER BY ride_hour_count DESC;
--- this shows the most times at which rides happen on weekdays for each type of riders.
+/* this shows the most times at which rides happen on weekdays for each type of riders
+(Hourly total rides during weekdays for each type of riders book5 sheet2) */
 SELECT ride_hour,COUNT(ride_hour) AS ride_hour_count, member_casual
 FROM(
     SELECT started_at, weekday, member_casual,EXTRACT(HOUR FROM started_at) AS ride_hour
@@ -238,7 +240,8 @@ FROM test
 ) s
 GROUP BY ride_hour, member_casual
 ORDER BY member_casual, ride_hour_count DESC;
--- this shows the most times at which rides happen per weekday for each type of the riders.
+/* this shows the most times at which rides happen per weekday for each type of the riders 
+(Hourly total rides per weekday for each type of riders seperated book5 sheet3) */
 SELECT weekday, ride_hour, COUNT(ride_hour) AS ride_hour_count, member_casual
 FROM(
     SELECT started_at, weekday, member_casual, EXTRACT(HOUR FROM started_at) AS ride_hour
@@ -246,8 +249,35 @@ FROM test
 ) s
 GROUP BY s.weekday, member_casual, ride_hour
 ORDER BY s.weekday, ride_hour_count DESC;
+-- Hourly rides during weekends for each type of riders ().
+SELECT weekday, ride_hour, COUNT(ride_hour) AS ride_hour_count, member_casual
+FROM(
+    SELECT started_at, weekday, member_casual, EXTRACT(HOUR FROM started_at) AS ride_hour
+FROM test
+) s
+WHERE s.weekday IN ('Saturday', 'Sunday')
+GROUP BY s.weekday, member_casual, ride_hour
+ORDER BY s.weekday, ride_hour_count DESC;
+--Hourly rides during weekdays for each type of riders ().
+SELECT weekday, ride_hour, COUNT(ride_hour) AS ride_hour_count, member_casual
+FROM(
+    SELECT started_at, weekday, member_casual, EXTRACT(HOUR FROM started_at) AS ride_hour
+FROM test
+) s
+WHERE s.weekday NOT IN ('Saturday', 'Sunday')
+GROUP BY s.weekday, member_casual, ride_hour
+ORDER BY s.weekday, ride_hour_count DESC;
 
--- here i'm calculating the average, median, maximum and minimum ride length for each rider type.
+-- monthly rides
+SELECT member_casual, date, COUNT(date) AS rides_per_month
+FROM(
+    SELECT started_at, weekday, member_casual, TO_CHAR(started_at, 'YYYY-MM') AS date
+FROM test
+) d
+GROUP BY d.date ,member_casual
+ORDER BY member_casual, date,rides_per_month DESC;
+
+-- here i'm calculating the average, median, maximum and minimum ride length for each rider type (book6).
 SELECT member_casual,
 COUNT(*) AS total,
 (AVG(ride_length)) AS mean,

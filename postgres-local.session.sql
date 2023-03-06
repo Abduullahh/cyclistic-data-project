@@ -143,7 +143,8 @@ TABLE_NAME = 'test';
 -------------------------------------------------------------------------------------------------------
 --------------------------------------/* ANALYZE STEP */-----------------------------------------------
 
--- to know the number and percentage of each rider type and sort the result by the highest total (book1).
+/* to know the number and percentage of each rider type and sort the result by the highest total 
+refer to GDAC-Capstone-book1.csv and it's dashboard (GDAC-Capstone-book1 on tableau) */
 SELECT COUNT( DISTINCT ride_id) FROM test; -- 5754248 rows
 SELECT COUNT (ride_id) AS total,
 ((CAST(COUNT(ride_id) AS NUMERIC)/5754248) * 100) AS percent_total,member_casual
@@ -151,14 +152,15 @@ FROM test
 GROUP BY member_casual
 ORDER BY total DESC;
 
--- this returns a table displaying the type of bike and the number of them for each type of riders (book4).
+/* this returns a table displaying the type of bike and the number of them for each type of riders 
+refer to GDAC-Capstone-book2.csv and its dashboard (GDAC-Capstone-book2 on tableau) */
 SELECT member_casual, rideable_type, COUNT(rideable_type) AS rideable_type_count
 FROM test
 GROUP BY member_casual, rideable_type
 ORDER BY 3 DESC;
 
 /* this returns a result displaying the number of rides per weekday for each type of riders
-( Total number of rides per weekday for each type of riders seperated book5 sheet1) */
+refer to GDAC-Capstone-book3-sheet1.csv and its dashboard (GDAC-Capstone-book3 sheet1 on tableau) */
 SELECT weekday, member_casual, COUNT(weekday) AS weekday_count
 FROM test
 GROUP BY weekday, member_casual
@@ -232,7 +234,7 @@ WHERE weekday = 'Friday'
 GROUP BY s.weekday, ride_hour
 ORDER BY ride_hour_count DESC;
 /* this shows the most times at which rides happen on weekdays for each type of riders
-(Hourly total rides during weekdays for each type of riders book5 sheet2) */
+refer to GDAC-Capstone-book3-sheet2.csv and its dashboard (GDAC-Capstone-book3 sheet2 on tableau) */
 SELECT ride_hour,COUNT(ride_hour) AS ride_hour_count, member_casual
 FROM(
     SELECT started_at, weekday, member_casual,EXTRACT(HOUR FROM started_at) AS ride_hour
@@ -241,7 +243,7 @@ FROM test
 GROUP BY ride_hour, member_casual
 ORDER BY member_casual, ride_hour_count DESC;
 /* this shows the most times at which rides happen per weekday for each type of the riders 
-(Hourly total rides per weekday for each type of riders seperated book5 sheet3) */
+refer to GDAC-Capstone-book3-sheet3.csv and its dashboard (GDAC-Capstone-book3 sheet3 on tableau) */
 SELECT weekday, ride_hour, COUNT(ride_hour) AS ride_hour_count, member_casual
 FROM(
     SELECT started_at, weekday, member_casual, EXTRACT(HOUR FROM started_at) AS ride_hour
@@ -249,7 +251,8 @@ FROM test
 ) s
 GROUP BY s.weekday, member_casual, ride_hour
 ORDER BY s.weekday, ride_hour_count DESC;
--- Hourly rides during weekends for each type of riders ().
+/* Hourly rides during weekends for each type of riders 
+refer to GDAC-Capstone-book4-sheet1.csv and its dashboard (GDAC-Capstone-book4 sheet1 on tableau) */
 SELECT weekday, ride_hour, COUNT(ride_hour) AS ride_hour_count, member_casual
 FROM(
     SELECT started_at, weekday, member_casual, EXTRACT(HOUR FROM started_at) AS ride_hour
@@ -258,7 +261,8 @@ FROM test
 WHERE s.weekday IN ('Saturday', 'Sunday')
 GROUP BY s.weekday, member_casual, ride_hour
 ORDER BY s.weekday, ride_hour_count DESC;
---Hourly rides during weekdays for each type of riders ().
+/* Hourly rides during weekdays for each type of riders 
+refer to GDAC-Capstone-book4-sheet2.csv and its dashboard (GDAC-Capstone-book4 sheet2 on tableau) */
 SELECT weekday, ride_hour, COUNT(ride_hour) AS ride_hour_count, member_casual
 FROM(
     SELECT started_at, weekday, member_casual, EXTRACT(HOUR FROM started_at) AS ride_hour
@@ -268,16 +272,8 @@ WHERE s.weekday NOT IN ('Saturday', 'Sunday')
 GROUP BY s.weekday, member_casual, ride_hour
 ORDER BY s.weekday, ride_hour_count DESC;
 
--- monthly rides
-SELECT member_casual, date, COUNT(date) AS rides_per_month
-FROM(
-    SELECT started_at, weekday, member_casual, TO_CHAR(started_at, 'YYYY-MM') AS date
-FROM test
-) d
-GROUP BY d.date ,member_casual
-ORDER BY member_casual, date,rides_per_month DESC;
-
--- here i'm calculating the average, median, maximum and minimum ride length for each rider type (book6).
+/* here i'm calculating the average, median, maximum and minimum ride length for each rider type 
+refer to GDAC-Capstone-book5.csv and its dashboard (GDAC-Capstone-book5 on tableau) */
 SELECT member_casual,
 COUNT(*) AS total,
 (AVG(ride_length)) AS mean,
@@ -297,3 +293,12 @@ WHERE ride_length = 0;
 -- to convert ride length from hours to minutes.
 UPDATE test
 SET ride_length = ride_length * 60;
+
+/* monthly rides refer to GDAC-Capstone-book6.csv and its dashboard (GDAC-Capstone-book6 on tableau) */
+SELECT member_casual, date, COUNT(date) AS rides_per_month
+FROM(
+    SELECT started_at, weekday, member_casual, TO_CHAR(started_at, 'YYYY-MM') AS date
+FROM test
+) d
+GROUP BY d.date ,member_casual
+ORDER BY member_casual, date,rides_per_month DESC;

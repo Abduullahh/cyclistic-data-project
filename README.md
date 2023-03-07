@@ -136,3 +136,27 @@
 ### Deliverable
 ##### Supporting visualizations and key findings
 - Refer to the PDFs i've uploaded in the code section.
+
+
+# Act
+### Guiding questions
+1. What is your final conclusion based on your analysis?
+- Members and Casuals use the service differently, The conclusions are stated in the Analyze and Share sections.
+2. How could your team and business apply your insights?
+- The insights could be applied within the marketing campaign to turn Casuals into Members.
+3. What next steps would you or your stakeholders take based on your findings?
+- We could do a further analysis to improve findings more if needed.
+4. Is there additional data you could use to expand on your findings?
+- A data displays the climate would be so helpful to do further analysis and improve findings. 
+
+### Key tasks
+1. Create your portfolio.
+2. Add your case study.
+3. Practice presenting your case study to a friend or family member.
+- Done
+
+### Deliverable
+##### Your top three recommendations based on your analysis
+- Make ads on how bikes help people get to their work and how it would be helpful for our planet to lower the usage of vehicles and replace it with the bikes.
+- Make some benifits during the warm months (spring and summer), Like coupons for free single rides or some discounts on the annual memberships.
+- Make a discount offer on the annual membership for the new subscribers, this would attract more people to buy memberships.

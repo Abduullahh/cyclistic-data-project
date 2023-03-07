@@ -1,6 +1,7 @@
 # data-project
 ##### My google data anlaytics certificate capstone (track one)
 
+
 # Ask
 
 ### Three questions will guide the future marketing program:
@@ -92,7 +93,7 @@
 - Members use 2 types only of the rideable bikes while Casuals use 3.
 - Members are more likely to use the service on the weekdays while Casuals tend more to use it on the weekends.
 - Members follow the peaks of a work day while Casuals use the service mostly in the afternoon and the early evening.
-- Based on the maximum ride lengths and also the average i can conclude that Casuals use the service for more periods than Members.
+- Based on the maximum ride lengths and also the average i can conclude that Casuals use the service for longer periods of time than Members.
 - Based on the monthly rides i can conclude that rides have higher records in the spring and summer, and lower records in fall and winter.
 5. How will these insights help answer your business questions?
 - It shows some differences between Members and Casual.
@@ -107,3 +108,31 @@
 ### Deliverable
 ##### A summary of your analysis
 - Refer to [postgresql-local.session.sql](postgres-local.session.sql).
+
+
+# Share
+### Guiding questions
+1. Were you able to answer the question of how annual members and casual riders use Cyclistic bikes differently?
+- Yes, Answered it in the Analyze phase section.
+2. What story does your data tell?
+- It tells that Casuals overall uses the service for longer periods of time than Members as they use it for leisure while Members are more often to use it for a routine activity on certain times, Members use the service more during the weekdays (Monday - Friday) while Casuals use the service more on the weekends (Saturday and Sunday).
+3. How do your findings relate to your original question?
+- My findings show how Members and Casuals use the service differently.
+4. Who is your audience? What is the best way to communicate with them?
+- My audience is Lily Moreno (the director of marketing), Cyclistic marketing analytics team, and Cyclistic executive team
+- The best way to communicate with them is by presenting them with the visualizations i've created.
+5. Can data visualization help you share your findings?
+- Yes, the core of my findings is found within the visualizations i've created.
+6. Is your presentation accessible to your audience?
+- Yes
+
+### Key tasks
+1. Determine the best way to share your findings.
+2. Create effective data visualizations.
+3. Present your findings.
+4. Ensure your work is accessible.
+- Done
+
+### Deliverable
+##### Supporting visualizations and key findings
+- Refer to the PDFs i've uploaded in the code section.

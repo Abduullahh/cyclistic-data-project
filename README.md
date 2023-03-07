@@ -83,29 +83,35 @@
 
 ### Deliverable
 ##### Documentation of any cleaning or manipulation of data
--  The [postgresql-local.session.sql](https://github.com/Abduullahh/data-project/blob/627473eb68a96ab1def421fab80095c61987f966/postgres-local.session.sql) file has everything i've done to get my data clean.  
+-  Refer to [postgresql-local.session.sql](https://github.com/Abduullahh/data-project/blob/627473eb68a96ab1def421fab80095c61987f966/postgres-local.session.sql).  
 
 
 # Analyze
 ### Guiding questions
-1. How should you organize your data to perform analysis on it?  
-- 
-2. Has your data been properly formatted?  
-- 
-3. What surprises did you discover in the data?  
-- 
-4. What trends or relationships did you find in the data?  
-- 
-5. How will these insights help answer your business questions?  
-- 
+1. How should you organize your data to perform analysis on it?
+- This is done by sorting and filtering my data.
+2. Has your data been properly formatted?
+- Yes, all columns have consistent data type.
+3. What surprises did you discover in the data?
+- After i cleaned my data in the process step i found out that my data still had some things needed to be cleaned.
+- The differences between Members and Casuals i found. 
+4. What trends or relationships did you find in the data?
+- Members are more than the Casuals.
+- Members use 2 types only of the rideable bikes while Casuals use 3.
+- Members are more likely to use the service on the weekdays while Casuals tend more to use it on the weekends.
+- Members follow the peaks of a work day while Casuals use the service mostly in the afternoon and the early evening.
+- Based on the maximum ride lengths and also the average i can conclude that Casuals use the service for more periods than Members.
+- Based on the monthly rides i can conclude that rides have higher records in the spring and summer, and lower records in fall and winter.
+5. How will these insights help answer your business questions?
+- It shows some differences between Members and Casual.
 
 ### Key tasks
 1. Aggregate your data so it’s useful and accessible.
 2. Organize and format your data.
 3. Perform calculations.
 4. Identify trends and relationships.
-- 
+- Done
 
 ### Deliverable
 ##### A summary of your analysis
-- 
+- Refer to [postgresql-local.session.sql](https://github.com/Abduullahh/data-project/blob/627473eb68a96ab1def421fab80095c61987f966/postgres-local.session.sql).

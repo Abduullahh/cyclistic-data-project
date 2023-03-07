@@ -70,9 +70,9 @@
 3. What steps have you taken to ensure that your data is clean?  
 - I made sure that the data i'm working with is complete, correct and relevant to the problem i'm trynna solve.  
 4. How can you verify that your data is clean and ready to analyze?  
--  Check the postgresql-local.session.sql file i've added all the procedures i took.
+-  Check the [postgresql-local.session.sql](postgres-local.session.sql) file i've added all the steps i took to get my data ready.
 5. Have you documented your cleaning process so you can review and share those results?  
--  Yes.
+-  Yes by using this [README](README.md) file and also the [postgresql-local.session.sql](postgres-local.session.sql) file.
 
 ### Key tasks
 1. Check the data for errors.

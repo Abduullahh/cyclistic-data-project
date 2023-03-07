@@ -114,4 +114,4 @@
 
 ### Deliverable
 ##### A summary of your analysis
-- Refer to [postgresql-local.session.sql](https://github.com/Abduullahh/data-project/blob/627473eb68a96ab1def421fab80095c61987f966/postgres-local.session.sql).
+- Refer to [postgresql-local.session.sql](postgres-local.session.sql).

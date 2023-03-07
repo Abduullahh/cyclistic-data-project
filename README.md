@@ -92,7 +92,7 @@
 - Members are more than the Casuals.
 - Members use 2 types only of the rideable bikes while Casuals use 3.
 - Members are more likely to use the service on the weekdays while Casuals tend more to use it on the weekends.
-- Members follow the peaks of a work day while Casuals use the service mostly in the afternoon and the early evening.
+- Based on the hourly rides Members follow the peaks of a work day while Casuals use the service mostly in the afternoon and the early evening.
 - Based on the maximum ride lengths and also the average i can conclude that Casuals use the service for longer periods of time than Members.
 - Based on the monthly rides i can conclude that rides have higher records in the spring and summer, and lower records in fall and winter.
 5. How will these insights help answer your business questions?
